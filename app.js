@@ -6,7 +6,6 @@ const axios = require("axios"); // For making HTTP requests to TMDB
 const path = require("path"); // For handling file paths
 const cookieParser = require("cookie-parser"); // For handling cookies
 const admin = require('firebase-admin'); // Firebase Admin SDK
-const serverless = require("serverless-http");
 
 // Initialize Express app
 const app = express();
@@ -410,7 +409,7 @@ app.post('/movies/add-manual', async (req, res) => {
 });
 const PORT = process.env.PORT || 3000;
 // --- Server Start ---
-module.exports = serverless(app); //for vercel
+module.exports = app; //for vercel
 if (process.env.VERCEL !== "1") {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);//for not vercel
