@@ -411,6 +411,8 @@ app.post('/movies/add-manual', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 // --- Server Start ---
 module.exports = serverless(app); //for vercel
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`) //for local, render
-});
+if (process.env.VERCEL !== "1") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);//for not vercel
+  });
+}
