@@ -6,6 +6,7 @@ const axios = require("axios"); // For making HTTP requests to TMDB
 const path = require("path"); // For handling file paths
 const cookieParser = require("cookie-parser"); // For handling cookies
 const admin = require('firebase-admin'); // Firebase Admin SDK
+const serverless = require("serverless-http");
 
 // Initialize Express app
 const app = express();
@@ -71,7 +72,7 @@ let firebaseConfig = {};
 try {
     if (process.env.FIREBASE_CONFIG) {
         firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-        console.log("Parsed firebaseConfig in app.js (server-side):", firebaseConfig);
+        // console.log("Parsed firebaseConfig in app.js (server-side):", firebaseConfig);
     } else {
         console.warn("Warning: FIREBASE_CONFIG is not set in your .env file. Firebase may not initialize correctly.");
     }
@@ -409,6 +410,7 @@ app.post('/movies/add-manual', async (req, res) => {
 });
 const PORT = process.env.PORT || 3000;
 // --- Server Start ---
+module.exports = serverless(app); //for vercel
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+    console.log(`Server running on port ${PORT}`) //for local, render
 });
